@@ -1,229 +1,812 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HUNANIMA — Machines Agricoles Simples</title>
-  <meta name="description" content="HUNANIMA — machines agricoles simples et fiables. Récolte, fourrage et outils pour petites parcelles avec support clair et prix équitable."/>
-  <style>
-    :root{
-      --primary:#1B7F3A;   /* Vert */
-      --accent:#FFD300;    /* Jaune */
-      --nav:#0E4D25;       /* Vert foncé */
-      --ink:#0b0b0b;
-      --muted:#58636f;
-      --card:#ffffff;
-      --bg:#ffffff;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowers of Coral Springs LLC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #C9717B;
+    --rose-light: #F5DFE1;
+    --rose-dark: #8B3A42;
+    --green: #4A6741;
+    --green-light: #D8E8D3;
+    --cream: #FAF6F0;
+    --cream-dark: #F0E8DC;
+    --text: #2C2218;
+    --text-muted: #7A6A5A;
+    --white: #FFFFFF;
+    --border: #E8D9C8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); }
 
-    /* Header */
-    header{background:var(--nav); color:#fff; position:sticky; top:0; z-index:10; box-shadow:0 6px 18px rgba(0,0,0,.08)}
-    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px}
-    .brand{font-weight:900; letter-spacing:.35px}
-    nav a{display:inline-block; padding:10px 14px; border-radius:12px; color:#eaffea; font-weight:700}
-    nav a:hover{background:rgba(255,255,255,.12)}
-    .cta-btn{background:var(--accent); color:#1a1500; padding:10px 14px; border-radius:12px; font-weight:800}
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(250,246,240,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border); padding: 0 2rem;
+  }
+  .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 500; color: var(--rose-dark); letter-spacing: 0.02em; text-decoration: none; }
+  .nav-logo span { color: var(--green); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-cta { background: var(--rose); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; text-decoration: none; }
+  .nav-cta:hover { background: var(--rose-dark); }
 
-    /* Hero (animated card) */
-    .hero-wrap{background:linear-gradient(180deg,#ffffff,#f2fff6); padding:42px 24px}
-    .hero-card{
-      background:var(--card); border:1px solid rgba(0,0,0,.06); border-radius:22px;
-      box-shadow:0 30px 60px rgba(0,0,0,.12); padding:28px;
-      display:grid; grid-template-columns:1.15fr .85fr; gap:22px; overflow:hidden;
-      transform:translateY(24px); opacity:0; animation:cardIn .9s ease-out .15s forwards;
-    }
-    @keyframes cardIn{to{transform:translateY(0);opacity:1}}
-    .hero-badge{display:inline-flex; align-items:center; gap:10px; background:#0e3a1d; color:var(--accent); padding:6px 12px; border-radius:999px; font-size:.9rem; font-weight:800}
-    .hero-title{font-size:clamp(26px,4vw,42px); line-height:1.15; margin:14px 0 10px; font-weight:900}
-    .hero-title .grad{background:linear-gradient(90deg,var(--primary),#2fc368); -webkit-background-clip:text; color:transparent}
-    .hero-sub{font-size:1.02rem; color:#2f3540}
-    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
-    .btn{border:2px solid #0e3a1d; color:#fff; background:#0e3a1d; padding:12px 18px; border-radius:14px; font-weight:800}
-    .btn:hover{transform:translateY(-1px); box-shadow:0 8px 16px rgba(0,0,0,.15)}
-    .btn.secondary{background:var(--accent); color:#1a1500; border-color:var(--accent)}
-    .hero-media{border-radius:18px; overflow:hidden; aspect-ratio:4/3; background:#f6fff8;
-      display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8px}
-    .hero-media img{object-fit:cover; width:100%; height:100%}
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #FAF0EC 0%, #F5DFE1 40%, #D8E8D3 100%);
+    display: flex; align-items: center; padding-top: 70px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,113,123,0.12) 0%, transparent 70%);
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--rose-dark); }
+  .hero-desc { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 420px; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--rose); color: white; padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.04em; transition: all 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--rose-dark); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--green); padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.04em; transition: all 0.2s; border: 2px solid var(--green); cursor: pointer; }
+  .btn-outline:hover { background: var(--green); color: white; transform: translateY(-1px); }
+  .hero-image-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; height: 500px; }
+  .hero-img { border-radius: 16px; overflow: hidden; }
+  .hero-img:first-child { grid-row: span 2; }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .hero-img:hover img { transform: scale(1.04); }
+  .hero-badge {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    background: white; border: 1px solid var(--border); border-radius: 50px;
+    padding: 0.6rem 1.5rem; display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.85rem; color: var(--text-muted); box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .hero-badge .stars { color: #F4A623; }
 
-    /* Sections */
-    section{padding:56px 24px}
-    section h2{font-size:clamp(22px,3vw,32px); margin:0 0 14px; font-weight:900}
-    .muted{color:var(--muted)}
+  /* SECTIONS GENERAL */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; color: var(--text); margin-bottom: 1rem; }
+  .section-subtitle { font-size: 1rem; color: var(--text-muted); line-height: 1.8; max-width: 580px; }
 
-    /* Cards */
-    .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
-    .card{border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:16px; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.06);
-      transform:translateY(14px); opacity:0}
-    .card.reveal{animation:reveal .7s ease-out forwards}
-    @keyframes reveal{to{transform:translateY(0); opacity:1}}
+  /* ABOUT STRIP */
+  .about-strip { background: var(--green); padding: 3rem 2rem; }
+  .strip-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
+  .strip-item { text-align: center; color: white; }
+  .strip-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; line-height: 1; }
+  .strip-label { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; margin-top: 0.3rem; }
 
-    /* Gallery */
-    .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-    .gallery img{border-radius:14px; aspect-ratio:4/3; object-fit:cover}
+  /* FLOWERS GALLERY */
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .flower-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; }
+  .flower-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .flower-img-wrap { height: 240px; overflow: hidden; position: relative; }
+  .flower-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .flower-card:hover .flower-img-wrap img { transform: scale(1.06); }
+  .flower-tag { position: absolute; top: 12px; left: 12px; background: white; color: var(--rose-dark); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 50px; }
+  .flower-body { padding: 1.5rem; }
+  .flower-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+  .flower-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+  .flower-price { font-weight: 600; color: var(--rose); font-size: 1rem; }
 
-    /* Formula */
-    .formula{border-left:6px solid var(--accent); background:#fff9ce; padding:16px 18px; border-radius:12px}
-    .formula ol{margin:0; padding-left:18px}
-    .formula li{margin:8px 0}
+  /* SERVICES */
+  .services-bg { background: var(--cream-dark); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+  .service-card { background: white; border-radius: 20px; padding: 2rem; border: 1px solid var(--border); }
+  .service-icon { width: 52px; height: 52px; background: var(--rose-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; }
+  .service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
+  .service-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 
-    /* Contact */
-    .contact-box{background:var(--primary); color:#fff; border-radius:18px; padding:20px; display:grid; gap:8px; border:1px solid rgba(0,0,0,.12)}
-    .contact-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
-    .contact-actions a{display:inline-block; background:var(--accent); color:#1a1500; padding:10px 14px; border-radius:12px; font-weight:800}
+  /* REVIEWS */
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .review-card { background: white; border-radius: 20px; padding: 1.8rem; border: 1px solid var(--border); }
+  .review-stars { color: #F4A623; font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .review-text { font-size: 0.92rem; line-height: 1.8; color: var(--text-muted); font-style: italic; margin-bottom: 1.2rem; }
+  .review-author { display: flex; align-items: center; gap: 0.8rem; }
+  .review-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--rose-light); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; color: var(--rose-dark); }
+  .review-name { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .review-date { font-size: 0.78rem; color: var(--text-muted); }
 
-    footer{background:#0e3a1d; color:var(--accent); padding:18px; text-align:center; font-weight:700}
+  /* MAP SECTION */
+  .map-section { background: var(--cream-dark); }
+  .map-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: start; margin-top: 3rem; }
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-icon { width: 44px; height: 44px; min-width: 44px; background: var(--rose-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .contact-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.3rem; }
+  .contact-value { font-size: 0.95rem; color: var(--text); line-height: 1.6; }
+  .contact-value a { color: var(--rose-dark); text-decoration: none; }
+  .contact-value a:hover { text-decoration: underline; }
+  .map-embed { border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+  .map-embed iframe { display: block; width: 100%; height: 380px; border: none; }
 
-    @media (max-width:820px){
-      .hero-card{grid-template-columns:1fr; padding:20px}
-      .gallery{grid-template-columns:1fr}
-    }
-  </style>
+  /* ORDER FORM */
+  .order-section { background: white; }
+  .order-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+  .order-form { background: var(--cream); border-radius: 24px; padding: 2.5rem; border: 1px solid var(--border); }
+  .form-row { margin-bottom: 1.2rem; }
+  .form-row label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 10px;
+    font-family: 'Jost', sans-serif; font-size: 0.9rem; background: white; color: var(--text);
+    transition: border-color 0.2s;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--rose); }
+  .form-row textarea { height: 100px; resize: vertical; }
+  .form-submit { background: var(--rose); color: white; border: none; width: 100%; padding: 1rem; border-radius: 50px; font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; transition: background 0.2s; }
+  .form-submit:hover { background: var(--rose-dark); }
+  .order-image img { width: 100%; border-radius: 24px; height: 520px; object-fit: cover; }
+
+  /* OCCASIONS */
+  .occasions-bg { background: var(--green); }
+  .occasions-bg .section-label, .occasions-bg .section-title { color: white; }
+  .occasions-bg .section-subtitle { color: rgba(255,255,255,0.7); }
+  .occasions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 3rem; }
+  .occasion-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 1.8rem 1.2rem; text-align: center; color: white; transition: background 0.2s; cursor: pointer; }
+  .occasion-card:hover { background: rgba(255,255,255,0.18); }
+  .occasion-emoji { font-size: 2rem; margin-bottom: 0.8rem; }
+  .occasion-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 0.4rem; }
+  .occasion-sub { font-size: 0.8rem; opacity: 0.7; }
+
+  /* FOOTER */
+  footer { background: var(--text); color: rgba(255,255,255,0.7); padding: 4rem 2rem 2rem; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: white; margin-bottom: 1rem; }
+  .footer-tagline { font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .footer-social { display: flex; gap: 0.8rem; }
+  .social-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: white; text-decoration: none; transition: background 0.2s; cursor: pointer; }
+  .social-btn:hover { background: var(--rose); }
+  .footer-col-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: white; margin-bottom: 1.2rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--rose); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; font-size: 0.82rem; }
+  .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-bottom a:hover { color: white; }
+
+  /* PRIVACY MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; padding: 2rem; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: white; border-radius: 24px; max-width: 700px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 2.5rem; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--text); }
+  .modal-close { background: none; border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem; color: var(--text-muted); }
+  .modal-close:hover { background: var(--cream); }
+  .modal-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--text); margin: 1.5rem 0 0.5rem; }
+  .modal-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 0.5rem; }
+
+  /* DIVIDER ORNAMENT */
+  .ornament { text-align: center; color: var(--rose); font-size: 1.4rem; letter-spacing: 0.4em; margin: 0.5rem 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-image-grid { height: 300px; }
+    .gallery-grid, .services-grid, .reviews-grid { grid-template-columns: 1fr 1fr; }
+    .occasions-grid { grid-template-columns: 1fr 1fr; }
+    .strip-inner { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .map-layout, .order-layout { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid, .services-grid, .reviews-grid, .occasions-grid { grid-template-columns: 1fr; }
+  }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--green); color: white; padding: 1rem 1.5rem; border-radius: 12px; font-size: 0.9rem; z-index: 9000; transform: translateY(100px); opacity: 0; transition: all 0.4s; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="topbar container">
-      <div class="brand">HUNANIMA</div>
-      <nav>
-        <a href="#about">À propos</a>
-        <a href="#products">Produits</a>
-        <a href="#gallery">Galerie</a>
-        <a href="#formula">Notre Formule</a>
-        <a href="#contact" class="cta-btn">Contact</a>
-      </nav>
-    </div>
-  </header>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">Flowers of <span>Coral Springs</span></a>
+    <ul class="nav-links">
+      <li><a href="#flowers">Our Flowers</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" onclick="openPrivacy()">Privacy Policy</a></li>
+    </ul>
+    <a href="#order" class="nav-cta">Order Now</a>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <div class="hero-wrap">
-    <div class="container">
-      <div class="hero-card">
-        <div>
-          <span class="hero-badge">Machines Agricoles Simples</span>
-          <h1 class="hero-title">Travaillez malin. <span class="grad">Faites croître sûrement.</span></h1>
-          <p class="hero-sub">Équipements compacts, fiables et faciles à entretenir pour petites et moyennes exploitations — récolte, fourrage et manutention simplifiés.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#products">Découvrir nos Produits</a>
-            <a class="btn secondary" href="#contact">Demander un Devis</a>
-          </div>
-          <p class="muted" style="margin-top:10px;">
-            Avenue Baratier, 95160 Montmorency • +33 7 38 50 26 36 • admin@tyusex.shop
-          </p>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">🌸 Coral Springs, Florida</p>
+      <h1 class="hero-title">Blooms that <em>speak</em> when words fall short</h1>
+      <p class="hero-desc">Fresh, hand-crafted floral arrangements for every occasion. From intimate bouquets to grand wedding displays, we bring nature's finest to your doorstep.</p>
+      <div class="hero-btns">
+        <a href="#flowers" class="btn-primary">Shop Arrangements</a>
+        <a href="#order" class="btn-outline">Request a Quote</a>
+      </div>
+    </div>
+    <div class="hero-image-grid">
+      <div class="hero-img">
+        <img src="https://picsum.photos/id/110/600/700" alt="Beautiful pink roses bouquet" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+      </div>
+      <div class="hero-img">
+        <img src="https://picsum.photos/id/142/400/300" alt="Colorful sunflowers" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+      </div>
+      <div class="hero-img">
+        <img src="https://picsum.photos/id/152/400/300" alt="Red garden roses" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+      </div>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <span class="stars">★★★★★</span>
+    <span>Rated 5.0 · 200+ Happy Customers in Coral Springs</span>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="about-strip">
+  <div class="strip-inner">
+    <div class="strip-item">
+      <div class="strip-num">12+</div>
+      <div class="strip-label">Years of Service</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-num">5,000+</div>
+      <div class="strip-label">Arrangements Made</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-num">200+</div>
+      <div class="strip-label">5-Star Reviews</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-num">Same Day</div>
+      <div class="strip-label">Delivery Available</div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOWERS GALLERY -->
+<section id="flowers">
+  <div class="container">
+    <p class="section-label">Our Collection</p>
+    <h2 class="section-title">Handpicked Arrangements</h2>
+    <p class="section-subtitle">Every bouquet is carefully crafted using the freshest seasonal blooms, sourced daily from trusted growers.</p>
+    <div class="gallery-grid">
+
+      <div class="flower-card fade-up">
+        <div class="flower-img-wrap">
+          <img src="https://picsum.photos/id/110/600/400" alt="Classic Rose Bouquet" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+          <span class="flower-tag">Bestseller</span>
         </div>
-        <div class="hero-media">
-          <img src="https://i.pinimg.com/550x/a9/df/51/a9df5172829f8c05f5b92f97553d41ae.jpg" alt="Champ & tracteur">
-          <img src="http://ogden_images.s3.amazonaws.com/www.motherearthnews.com/images/2014/11/22234423/Boaz-Mini-Combine-jpg.jpg" alt="Mini moissonneuse">
-          <img src="https://krs-agro.ru/products/zagotovka_kormov/elho/19/7.jpg" alt="Outil de fourrage">
-          <img src="https://img.mod-network.net/files/images/6218ac69d37fb/SimpleFarmSilov1000_6222.jpg" alt="Équipement de silo">
+        <div class="flower-body">
+          <h3 class="flower-name">Classic Rose Bouquet</h3>
+          <p class="flower-desc">A timeless arrangement of long-stemmed red, pink, and white roses. Perfect for anniversaries, Valentine's Day, or simply saying "I love you."</p>
+          <p class="flower-price">From $45.00</p>
+        </div>
+      </div>
+
+      <div class="flower-card fade-up">
+        <div class="flower-img-wrap">
+          <img src="https://picsum.photos/id/142/600/400" alt="Sunflower Sunshine" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+          <span class="flower-tag">Seasonal</span>
+        </div>
+        <div class="flower-body">
+          <h3 class="flower-name">Sunflower Sunshine</h3>
+          <p class="flower-desc">Bright, cheerful sunflowers that radiate warmth and happiness. Ideal for birthdays, get-well wishes, or a simple pick-me-up for someone you care about.</p>
+          <p class="flower-price">From $38.00</p>
+        </div>
+      </div>
+
+      <div class="flower-card fade-up">
+        <div class="flower-img-wrap">
+          <img src="https://picsum.photos/id/146/600/400" alt="Garden Rose Elegance" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+          <span class="flower-tag">Elegant</span>
+        </div>
+        <div class="flower-body">
+          <h3 class="flower-name">White Lily Elegance</h3>
+          <p class="flower-desc">Stately white Oriental lilies paired with lush greenery. A symbol of purity and refined beauty, perfect for weddings and formal celebrations.</p>
+          <p class="flower-price">From $55.00</p>
+        </div>
+      </div>
+
+      <div class="flower-card fade-up">
+        <div class="flower-img-wrap">
+          <img src="https://picsum.photos/id/292/600/400" alt="Garden Mix Bouquet" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+          <span class="flower-tag">Popular</span>
+        </div>
+        <div class="flower-body">
+          <h3 class="flower-name">Garden Mix Bouquet</h3>
+          <p class="flower-desc">An eclectic mix of seasonal wildflowers — dahlias, peonies, lavender, and more. Each arrangement is unique, reflecting the beauty of nature's variety.</p>
+          <p class="flower-price">From $42.00</p>
+        </div>
+      </div>
+
+      <div class="flower-card fade-up">
+        <div class="flower-img-wrap">
+          <img src="https://picsum.photos/id/217/600/400" alt="Wedding Centerpiece flowers" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+          <span class="flower-tag">Weddings</span>
+        </div>
+        <div class="flower-body">
+          <h3 class="flower-name">Wedding Centerpiece</h3>
+          <p class="flower-desc">Luxurious table centerpieces designed to transform any venue. Customizable in color palette and scale to match your wedding vision perfectly.</p>
+          <p class="flower-price">From $95.00</p>
+        </div>
+      </div>
+
+      <div class="flower-card fade-up">
+        <div class="flower-img-wrap">
+          <img src="https://picsum.photos/id/159/600/400" alt="Beautiful orchid arrangement" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+          <span class="flower-tag">Premium</span>
+        </div>
+        <div class="flower-body">
+          <h3 class="flower-name">Orchid Delight</h3>
+          <p class="flower-desc">Exotic Phalaenopsis orchids in elegant ceramic vessels. Long-lasting and breathtaking — a living art piece that continues to bloom for months.</p>
+          <p class="flower-price">From $75.00</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<section class="occasions-bg" id="occasions">
+  <div class="container">
+    <p class="section-label" style="color:rgba(255,255,255,0.6)">Every Moment Matters</p>
+    <h2 class="section-title" style="color:white">Flowers for Every Occasion</h2>
+    <p class="section-subtitle" style="color:rgba(255,255,255,0.7)">We create custom arrangements for life's most meaningful moments.</p>
+    <div class="occasions-grid">
+      <div class="occasion-card">
+        <div class="occasion-emoji">💍</div>
+        <div class="occasion-name">Weddings</div>
+        <div class="occasion-sub">Bridal bouquets & décor</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">🎂</div>
+        <div class="occasion-name">Birthdays</div>
+        <div class="occasion-sub">Bright & cheerful blooms</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">❤️</div>
+        <div class="occasion-name">Romance</div>
+        <div class="occasion-sub">Anniversary & Valentine's</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">🏢</div>
+        <div class="occasion-name">Corporate</div>
+        <div class="occasion-sub">Office & event florals</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">🕊️</div>
+        <div class="occasion-name">Sympathy</div>
+        <div class="occasion-sub">Heartfelt condolences</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">🎓</div>
+        <div class="occasion-name">Graduation</div>
+        <div class="occasion-sub">Celebrate achievement</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">🍼</div>
+        <div class="occasion-name">New Baby</div>
+        <div class="occasion-sub">Welcoming new arrivals</div>
+      </div>
+      <div class="occasion-card">
+        <div class="occasion-emoji">🏠</div>
+        <div class="occasion-name">Housewarming</div>
+        <div class="occasion-sub">Home & living gifts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div class="container">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-subtitle">From same-day delivery to full event floristry, we're here for every bloom you need.</p>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🚚</div>
+        <h3 class="service-title">Same-Day Delivery</h3>
+        <p class="service-desc">Order before noon and we'll deliver fresh blooms anywhere in Coral Springs and surrounding areas the very same day. Surprise someone today!</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">💐</div>
+        <h3 class="service-title">Custom Bouquets</h3>
+        <p class="service-desc">Work with our expert florists to design a one-of-a-kind arrangement. Choose your flowers, colors, and style for a truly personal creation.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎊</div>
+        <h3 class="service-title">Event Floristry</h3>
+        <p class="service-desc">Full-service floral design for weddings, corporate events, galas, and parties. We handle everything from consultation to setup and teardown.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🌿</div>
+        <h3 class="service-title">Subscription Plans</h3>
+        <p class="service-desc">Weekly or monthly flower subscriptions for your home or office. Fresh seasonal arrangements delivered on your schedule, at a special price.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎁</div>
+        <h3 class="service-title">Gift Add-Ons</h3>
+        <p class="service-desc">Enhance your floral gift with chocolates, vases, greeting cards, candles, and more. We create complete gift packages for any occasion.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🌸</div>
+        <h3 class="service-title">Seasonal Collections</h3>
+        <p class="service-desc">Curated collections inspired by each season. From spring cherry blossoms to winter holiday arrangements — always fresh, always in season.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section class="order-section" id="order">
+  <div class="container">
+    <div class="order-layout">
+      <div>
+        <p class="section-label">Place An Order</p>
+        <h2 class="section-title">Request Your Arrangement</h2>
+        <p class="section-subtitle">Fill out the form and our team will be in touch within 1 hour to confirm your order and details.</p>
+        <br>
+        <div class="order-form">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-row">
+              <label>First Name</label>
+              <input type="text" placeholder="Jane">
+            </div>
+            <div class="form-row">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Email Address</label>
+            <input type="email" placeholder="jane@example.com">
+          </div>
+          <div class="form-row">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+1 (555) 000-0000">
+          </div>
+          <div class="form-row">
+            <label>Occasion</label>
+            <select>
+              <option value="">Select an occasion...</option>
+              <option>Wedding</option>
+              <option>Birthday</option>
+              <option>Anniversary</option>
+              <option>Corporate Event</option>
+              <option>Sympathy</option>
+              <option>Graduation</option>
+              <option>New Baby</option>
+              <option>Just Because</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-row">
+              <label>Delivery Date</label>
+              <input type="date">
+            </div>
+            <div class="form-row">
+              <label>Budget Range</label>
+              <select>
+                <option>$25 – $50</option>
+                <option>$50 – $100</option>
+                <option>$100 – $200</option>
+                <option>$200+</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Special Requests</label>
+            <textarea placeholder="Flower preferences, colors, message card text, delivery address..."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Send Request 🌸</button>
+        </div>
+      </div>
+      <div class="order-image">
+        <img src="https://picsum.photos/id/200/700/520" alt="Florist arranging flowers" onerror="this.style.background='#f5dfe1';this.style.display='block'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <p class="section-label">Customer Love</p>
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-subtitle">Don't take our word for it — here's what our beloved customers say about their experience.</p>
+    <div class="reviews-grid">
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The most beautiful roses I have ever seen. My wife was absolutely speechless when they arrived. The arrangement was exactly what I described, and it stayed fresh for over two weeks!"</p>
+        <div class="review-author">
+          <div class="review-avatar">MR</div>
+          <div>
+            <div class="review-name">Michael R.</div>
+            <div class="review-date">April 2025 · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I ordered flowers for my grandmother's 80th birthday and the team went above and beyond. They even included a handwritten note. Same-day delivery was perfect. Highly recommend!"</p>
+        <div class="review-author">
+          <div class="review-avatar">SL</div>
+          <div>
+            <div class="review-name">Sarah L.</div>
+            <div class="review-date">March 2025 · Yelp</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We used Flowers of Coral Springs for our entire wedding — bridal bouquets, centerpieces, church décor. Every single arrangement was stunning. Our guests couldn't stop complimenting them."</p>
+        <div class="review-author">
+          <div class="review-avatar">JT</div>
+          <div>
+            <div class="review-name">Jessica & Tom</div>
+            <div class="review-date">February 2025 · Wedding Wire</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The subscription plan is a game changer. Every Monday we get a fresh, gorgeous arrangement at the office. My team loves it and it makes the whole space feel so much more welcoming."</p>
+        <div class="review-author">
+          <div class="review-avatar">DK</div>
+          <div>
+            <div class="review-name">Diana K.</div>
+            <div class="review-date">January 2025 · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Ordered sympathy flowers for a colleague's loss. The team was so compassionate and the arrangement was tasteful and beautiful. They handled everything with such care and professionalism."</p>
+        <div class="review-author">
+          <div class="review-avatar">AP</div>
+          <div>
+            <div class="review-name">Amanda P.</div>
+            <div class="review-date">December 2024 · Facebook</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I've been ordering from here for three years. The quality is always exceptional and the prices are very fair. The custom orchid arrangement I got for my mother-in-law was simply stunning."</p>
+        <div class="review-author">
+          <div class="review-avatar">CM</div>
+          <div>
+            <div class="review-name">Carlos M.</div>
+            <div class="review-date">November 2024 · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAP & CONTACT -->
+<section class="map-section" id="contact">
+  <div class="container">
+    <p class="section-label">Find Us</p>
+    <h2 class="section-title">Visit or Contact Us</h2>
+    <p class="section-subtitle">We're conveniently located in Coral Springs, FL. Stop by our shop or reach out — we'd love to hear from you.</p>
+    <div class="map-layout">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Address</div>
+            <div class="contact-value">1440 Coral Ridge Dr<br>Coral Springs, FL 33071-5433<br>United States</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value"><a href="tel:15093908943">+1 (509) 390-8943</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value"><a href="mailto:contact@focsllc.org">contact@focsllc.org</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="contact-label">Business Hours</div>
+            <div class="contact-value">
+              Mon–Fri: 8:00 AM – 7:00 PM<br>
+              Saturday: 9:00 AM – 6:00 PM<br>
+              Sunday: 10:00 AM – 4:00 PM
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🚚</div>
+          <div>
+            <div class="contact-label">Delivery</div>
+            <div class="contact-value">Same-day delivery available<br>Order before 12:00 PM noon<br>Serving Coral Springs & Broward County</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.9999999!2d-80.2706!3d26.2707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9175e6b6e2e5d%3A0x111111!2s1440+Coral+Ridge+Dr%2C+Coral+Springs%2C+FL+33071!5e0!3m2!1sen!2sus!4v1234567890"
+            allowfullscreen="" loading="lazy"
+            title="Flowers of Coral Springs Location Map">
+          </iframe>
+        </div>
+        <div style="margin-top:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <a href="https://maps.google.com/?q=1440+Coral+Ridge+Dr+Coral+Springs+FL+33071" target="_blank" class="btn-primary" style="font-size:0.82rem;padding:0.7rem 1.4rem;">📍 Open in Google Maps</a>
+          <a href="tel:15093908943" class="btn-outline" style="font-size:0.82rem;padding:0.7rem 1.4rem;">📞 Call Us Now</a>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- About -->
-  <section id="about" class="container">
-    <h2>À propos de nous</h2>
-    <p class="muted">
-      HUNANIMA conçoit des machines agricoles pratiques, avec des commandes simples et une maintenance facile.  
-      Notre objectif : des outils qui démarrent chaque matin et font gagner des heures aux champs.
-    </p>
-    <div class="cards" style="margin-top:12px">
-      <article class="card reveal" style="animation-delay:.00s"><strong>Fiabilité :</strong> Moins de capteurs, mécanique éprouvée, entretien simple.</article>
-      <article class="card reveal" style="animation-delay:.08s"><strong>Adaptabilité :</strong> Accessoires pour récolte, fourrage et manutention.</article>
-      <article class="card reveal" style="animation-delay:.16s"><strong>Support :</strong> Conseils pièces et entretien.</article>
-      <article class="card reveal" style="animation-delay:.24s"><strong>Valeur :</strong> Spécifications solides sans extras inutiles.</article>
-    </div>
-  </section>
-
-  <!-- Products -->
-  <section id="products" class="container">
-    <h2>Produits</h2>
-    <div class="cards">
-      <article class="card reveal" style="animation-delay:.00s">
-        <h3>Mini Moissonneuse</h3>
-        <p>Récolte compacte pour petites parcelles ; transmission simple et faible consommation.</p>
-      </article>
-      <article class="card reveal" style="animation-delay:.08s">
-        <h3>Outils de Fourrage</h3>
-        <p>Accessoires de coupe et ramassage adaptés aux tracteurs de puissance moyenne.</p>
-      </article>
-      <article class="card reveal" style="animation-delay:.16s">
-        <h3>Silos & Manutention</h3>
-        <p>Chargeurs et vis de silo avec commandes simples.</p>
-      </article>
-      <article class="card reveal" style="animation-delay:.24s">
-        <h3>Kits de Service</h3>
-        <p>Filtres, courroies et fluides regroupés pour maximiser le temps de fonctionnement.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery" class="container">
-    <h2>Galerie</h2>
-    <div class="gallery">
-      <img src="https://i.pinimg.com/550x/a9/df/51/a9df5172829f8c05f5b92f97553d41ae.jpg" alt="Tracteur au champ">
-      <img src="http://ogden_images.s3.amazonaws.com/www.motherearthnews.com/images/2014/11/22234423/Boaz-Mini-Combine-jpg.jpg" alt="Mini moissonneuse gros plan">
-      <img src="https://krs-agro.ru/products/zagotovka_kormov/elho/19/7.jpg" alt="Équipement de fourrage">
-      <img src="https://img.mod-network.net/files/images/6218ac69d37fb/SimpleFarmSilov1000_6222.jpg" alt="Chargeur de silo">
-    </div>
-  </section>
-
-  <!-- Notre Formule -->
-  <section id="formula" class="container">
-    <h2>Notre Formule (10 Points Clés)</h2>
-    <div class="formula">
-      <ol>
-        <li><strong>Design Simple :</strong> Commandes intuitives, pièces accessibles.</li>
-        <li><strong>Taille Adaptée :</strong> Puissance calibrée aux parcelles et tâches.</li>
-        <li><strong>Économie de Carburant :</strong> Moteurs et transmissions efficaces.</li>
-        <li><strong>Durabilité :</strong> Pièces d’usure renforcées ; pièces de rechange faciles.</li>
-        <li><strong>Sécurité :</strong> Protections, prise de force sécurisée, étiquettes claires.</li>
-        <li><strong>Maintenance :</strong> Kits de service et plannings inclus.</li>
-        <li><strong>Polyvalence :</strong> Un tracteur, plusieurs accessoires.</li>
-        <li><strong>Disponibilité :</strong> Devis rapides et délais réalistes.</li>
-        <li><strong>Formation :</strong> Initiation simple à la livraison.</li>
-        <li><strong>Suivi :</strong> Assistance téléphonique/email et conseils pièces.</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="container">
-    <h2>Contact</h2>
-    <div class="contact-box">
-      <div><strong>Entreprise :</strong> HUNANIMA</div>
-      <div><strong>Domaine :</strong> Machines Agricoles Simples</div>
-      <div><strong>Adresse :</strong> Avenue Baratier, 95160 Montmorency, France</div>
-      <div><strong>Téléphone :</strong> +33 7 38 50 26 36</div>
-      <div><strong>Email :</strong> admin@tyusex.shop</div>
-      <div class="contact-actions">
-        <a href="mailto:admin@tyusex.shop?subject=Demande%20-%20HUNANIMA%20Machines%20Agricoles" target="_blank" rel="noopener">Envoyer un Email</a>
-        <a href="tel:+33738502636">Appeler</a>
-        <a href="https://wa.me/33738502636" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Avenue+Baratier+95160+Montmorency" target="_blank" rel="noopener">Ouvrir la Carte</a>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Flowers of Coral Springs LLC</div>
+      <p class="footer-tagline">Bringing beauty and meaning to every moment through the timeless art of floristry. Proudly serving Coral Springs and Broward County since 2012.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" title="Facebook">f</a>
+        <a class="social-btn" href="#" title="Instagram">📷</a>
+        <a class="social-btn" href="#" title="Pinterest">📌</a>
+        <a class="social-btn" href="#" title="Twitter/X">𝕏</a>
       </div>
     </div>
-  </section>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#flowers">All Arrangements</a></li>
+        <li><a href="#flowers">Roses</a></li>
+        <li><a href="#flowers">Lilies</a></li>
+        <li><a href="#flowers">Orchids</a></li>
+        <li><a href="#flowers">Wedding Flowers</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Same-Day Delivery</a></li>
+        <li><a href="#services">Custom Bouquets</a></li>
+        <li><a href="#services">Event Floristry</a></li>
+        <li><a href="#services">Subscriptions</a></li>
+        <li><a href="#services">Gift Add-Ons</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#home">About Us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" onclick="openPrivacy()">Privacy Policy</a></li>
+        <li><a href="mailto:contact@focsllc.org">Email Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Flowers of Coral Springs LLC · 1440 Coral Ridge Dr, Coral Springs, FL 33071</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="#" onclick="openPrivacy()">Privacy Policy</a>
+      <a href="mailto:contact@focsllc.org">contact@focsllc.org</a>
+    </div>
+  </div>
+</footer>
 
-  <footer>
-    © 2025 HUNANIMA — Tous droits réservés
-  </footer>
+<!-- PRIVACY MODAL -->
+<div class="modal-overlay" id="privacyModal" onclick="closePrivacy(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title">Privacy Policy</h2>
+      <button class="modal-close" onclick="closePrivacyBtn()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Last Updated: January 1, 2025</strong></p>
+      <p>Flowers of Coral Springs LLC ("we," "our," or "us") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you interact with our website or services.</p>
 
-  <script>
-    // Apparition progressive des cartes
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('reveal'); observer.unobserve(e.target); }
-      })
-    }, {threshold:.15});
-    document.querySelectorAll('.card').forEach(el=>observer.observe(el));
-  </script>
+      <h3>1. Information We Collect</h3>
+      <p>We may collect the following personal information: your name, email address, phone number, delivery address, and payment details when you place an order or submit a request. We also collect non-personal usage data such as browser type, pages visited, and time spent on our site via cookies and analytics tools.</p>
+
+      <h3>2. How We Use Your Information</h3>
+      <p>We use your information to process and fulfill orders, communicate about your orders or inquiries, send promotional communications (with your consent), improve our website and services, and comply with legal obligations.</p>
+
+      <h3>3. Sharing of Information</h3>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share data with trusted service providers (such as delivery services or payment processors) solely to operate our business, subject to confidentiality agreements.</p>
+
+      <h3>4. Cookies</h3>
+      <p>Our website uses cookies to enhance your browsing experience, remember preferences, and analyze site traffic. You may disable cookies in your browser settings; however, this may affect the functionality of certain features.</p>
+
+      <h3>5. Data Security</h3>
+      <p>We implement industry-standard security measures to protect your personal information from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet is 100% secure.</p>
+
+      <h3>6. Your Rights</h3>
+      <p>You have the right to access, correct, or delete your personal information at any time. To exercise these rights, contact us at contact@focsllc.org or call +1 (509) 390-8943.</p>
+
+      <h3>7. Children's Privacy</h3>
+      <p>Our website is not directed at children under the age of 13, and we do not knowingly collect personal information from minors.</p>
+
+      <h3>8. Changes to This Policy</h3>
+      <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated effective date. Continued use of our services constitutes acceptance of any revisions.</p>
+
+      <h3>9. Contact Us</h3>
+      <p>If you have any questions about this Privacy Policy, please contact:<br>
+      <strong>Flowers of Coral Springs LLC</strong><br>
+      1440 Coral Ridge Dr, Coral Springs, FL 33071<br>
+      📧 contact@focsllc.org<br>
+      📞 +1 (509) 390-8943</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">🌸 Your request has been sent! We'll contact you shortly.</div>
+
+<script>
+  // Privacy Modal
+  function openPrivacy() {
+    document.getElementById('privacyModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePrivacyBtn() {
+    document.getElementById('privacyModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function closePrivacy(e) {
+    if (e.target === document.getElementById('privacyModal')) closePrivacyBtn();
+  }
+
+  // Form submit
+  function submitForm() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
